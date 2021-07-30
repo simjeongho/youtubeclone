@@ -9,11 +9,11 @@ const Searchheader = ({onSearch})=>
     {
         const value = inputRef.current.value;
         console.log(value);
-        onSearch(value);
+        onSearch(value);//props에 있는 onSearch호출 onSearch에 value값 전달 
     }
     const onClick = (Event) =>
     {
-        handleSearch();
+        handleSearch(); // 콜백함수
     }
     const onkeypress = (Event) =>
     {

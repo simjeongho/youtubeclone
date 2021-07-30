@@ -8,8 +8,8 @@ function App({youtube}) {
   const [videos, setVideos] = useState([]);
   const search = query =>
   {
-    youtube.search(query)
-    .then(videos => setVideos(videos));
+    youtube.search(query)//prop으로 받은 youtube객체dml search를 사용 
+    .then(videos => setVideos(videos));//useState를 통해 state를 업데이트 시켜주는 video
     
   }
   useEffect(() =>
@@ -21,6 +21,7 @@ function App({youtube}) {
     <div className={styles.app}>
     <Searchheader onSearch={search}/>
     <Videolist videos = {videos} />
+    
     </div>
   );
 }
