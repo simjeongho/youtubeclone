@@ -1,10 +1,10 @@
 import React from 'react';
 import styles from './video_item.module.css';
 
-const Videoitem = ({video , onVideoClick , display}) => {
+const Videoitem = ({video , onVideoClicktoitem , display}) => {
     const displayType = display === 'list' ? styles.list : styles.grid;
     return (
-    <li className= {`${styles.container} ${displayType}`} onClick = {() => onVideoClick(video)}>
+    <li className= {`${styles.container} ${displayType}`} onClick = {() => {onVideoClicktoitem(video); console.log('onvideoclicktoitem')}}>
             <div className={styles.video}>
             <img className= {styles.thumbnails} src={video.snippet.thumbnails.medium.url} alt={video.snippet.channelTitle} />
             <div className= {styles.metadata} >

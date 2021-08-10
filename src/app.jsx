@@ -11,6 +11,7 @@ function App({youtube}) {
   
   const selectVideo = (video) =>
   {
+    console.log('onclickvideoapp');
     setSelectedVideo(video);
   } 
   const search = query =>
@@ -34,10 +35,10 @@ function App({youtube}) {
     <section className={styles.content}>
       {selectedVideo &&
         <div className={styles.detail}>
-      <Video_detail video = {selectedVideo} onVideoClick = {selectVideo}/>
+        <Video_detail video = {selectedVideo} onVideoClick = {selectVideo}/>
       </div>}
     <div className = {styles.list}>
-    <Videolist videos = {videos} onVideoClick = {selectVideo} display = {selectedVideo? 'list' : 'grid'}/>
+    <Videolist videos = {videos} onVideoClicktolist = {selectVideo} display = {selectedVideo? 'list' : 'grid'}/>
     </div>
     </section>
     </div>
