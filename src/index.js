@@ -20,3 +20,6 @@ ReactDOM.render(
 reportWebVitals();
 
 //app위에 존재하는 최상위 jsx 파일 index.js에서는 app에 props를 전달해준다. 
+//env에 api키를 넣고 받아온다. 환경파일 env
+// REACT_APP = createReact의 규칙
+//

@@ -33,3 +33,4 @@ class Youtube
 }
 
 export default Youtube;
+//api 키는 this.key로 받아오고 gitignore파일에 추가한다.

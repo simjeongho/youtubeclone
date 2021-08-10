@@ -3,7 +3,12 @@
     width:49%;
     padding: 0.2em;
 }
-
+.container.grid{
+    width: 49%;
+}
+.container.list{
+    width: 100%;
+}
 .video
 {
     width: 100%;

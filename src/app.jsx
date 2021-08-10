@@ -2,14 +2,24 @@
 import { useEffect, useState } from 'react';
 import styles from './app.module.css';
 import Searchheader from './components/search_header/search_header';
+import Video_detail from './components/video_detail/video_detail';
 import Videolist from './components/video_list/video_list';
 
 function App({youtube}) {
   const [videos, setVideos] = useState([]);
+  const [selectedVideo , setSelectedVideo] = useState(null); // c처음에는 선택된 것이 없기 때문에 null이다.'
+  
+  const selectVideo = (video) =>
+  {
+    setSelectedVideo(video);
+  } 
   const search = query =>
   {
+    setSelectedVideo(null);
     youtube.search(query)//prop으로 받은 youtube객체dml search를 사용 
-    .then(videos => setVideos(videos));//useState를 통해 state를 업데이트 시켜주는 video
+    .then(videos => 
+      {setVideos(videos);
+      });//useState를 통해 state를 업데이트 시켜주는 video  // setSelectedVideo함수를 이용해 다시 selectedVideo를 null로 만들어준다.
     
   }
   useEffect(() =>
@@ -21,8 +31,15 @@ function App({youtube}) {
   return (
     <div className={styles.app}>
     <Searchheader onSearch={search}/>
-    <Videolist videos = {videos} />
-    
+    <section className={styles.content}>
+      {selectedVideo &&
+        <div className={styles.detail}>
+      <Video_detail video = {selectedVideo} onVideoClick = {selectVideo}/>
+      </div>}
+    <div className = {styles.list}>
+    <Videolist videos = {videos} onVideoClick = {selectVideo} display = {selectedVideo? 'list' : 'grid'}/>
+    </div>
+    </section>
     </div>
   );
 }
@@ -50,4 +67,11 @@ function App({youtube}) {
 //dependency injection을 할 때 class내부에서 새로운 injection된 object를 만들면 안된다. 외부에서 받아와야 함 
 //mock클래스를 제공해 주어야 함 만약 app에서 youtube object를 생성하면 app함수가 호출될 때마다 새로운 youyube object를 만들게 된다. 
 //하지만 index.js에서 만든 후 prop으로 전달해주면 index.js가 불려지는 초기 단계에 한 번만 생성된다. 
+
+//선택을 하게 되면 선택 된 video를 기억했다가 그 선택된 video에 관련된 video의 정보를 보여주면 된다. 
+//detail component를 만들면 된다. 
+//선택된 video가 있다면 video옆에다가 보여주면 되고 선택된 video가 없다면 안보여주면 됨 
+//선택하는 것은 video_list에서 선택이 되는 것
+//따라서 video_list에 콜백함수를 전달 (selectedVideo를 정하는 함수)
+//최종적으로 video_item컴포넌트에서 onclick이 되었을 때 video를 onVideoClick에 전달한다. 
 export default App;
