@@ -14,6 +14,7 @@ function App({youtube}) {
   }
   useEffect(() =>
   {
+    console.log('mounted');
     youtube.mostPopular().then(videos => setVideos(videos));
     
   }, []); // 마운트가 되었을 때만 호출 두번째 인자 빈 배열인 경우
@@ -25,5 +26,28 @@ function App({youtube}) {
     </div>
   );
 }
+//전체적인 흐름
+//1.useEffect에서 setVideos함수를 통해 videos를 업데이트 해준다.
+//2.업데이트한 videos를 prop으로 video_list에 전달한다. 
+//3.prop으로 전달받은 videos들을 하나의 video component로 만들기 위해 map을 이용해 video_item으로 prop으로 전달해준다. 
+//4.video_item으로 전달 받은 prop (key, video)를 이용해 video_item component를 만든다. 
 
+//비디오의 목록을 가질 수 있는 state가 있어야 함 
+//function component에서 state를 사용할 수 있는 방법은 useState를 사용하면 됨
+//리액트 훅에 해당
+//const [videos, setVideos] = useState(); 로 할당하면 각각의 state변수와 state를 업데이트 할 수 있는 함수가 정의되게 된다. 
+//초기 값은 텅텅 비어진 비디오의 목록 
+//useState함수의 파라미터는 state 변수의 초기값
+//useEffect는 component가 업데이트 되었거나 mount가 되었을 때 불려지는 lifecycle 함수
+//useEffect에서 텅텅 비어진 배열을 두 번째 인자로 전달하면 mount가 되었을 때만 함수를 호출한다
+//useEffect함수는 화면 그리기와 배치를 마친 후 호출된다<div className=""></div>
+//useEffect함수에 두 번째 인자로 state나 props를 전달했다면 전달한 인자가 바뀔 때만 호출된다.  []안에 전달하면 됨
+
+
+//mvc 라는 패턴은 model - view - controller와 같다. 
+//리액트는 v를 담당하는 친구로 똑똑하게 만들면 안된다.
+//dependency injection을 통해 기능을 추가한다. 
+//dependency injection을 할 때 class내부에서 새로운 injection된 object를 만들면 안된다. 외부에서 받아와야 함 
+//mock클래스를 제공해 주어야 함 만약 app에서 youtube object를 생성하면 app함수가 호출될 때마다 새로운 youyube object를 만들게 된다. 
+//하지만 index.js에서 만든 후 prop으로 전달해주면 index.js가 불려지는 초기 단계에 한 번만 생성된다. 
 export default App;

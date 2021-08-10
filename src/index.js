@@ -18,3 +18,5 @@ ReactDOM.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+
+//app위에 존재하는 최상위 jsx 파일 index.js에서는 app에 props를 전달해준다. 

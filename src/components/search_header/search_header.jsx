@@ -17,7 +17,7 @@ const Searchheader = ({onSearch})=>
     }
     const onkeypress = (Event) =>
     {
-        if(Event.key ==='Enter')
+        if(Event.key==='Enter')
         {
             handleSearch();
         }
@@ -37,3 +37,9 @@ const Searchheader = ({onSearch})=>
 }
 
 export default Searchheader;
+
+//onClick, onkeyPress는 event의 일종이다.
+//Event에는 많은 속성이 있다.
+//const handlesearch에는 input에 있는 값을 받아와야 하기 때문에 ref를 사용한다. useRef()를 이용한다. 
+// 검색 하는 것을 prop으로 받아와야 한다. 
+// 네 컴포넌트 안에서 click이나 enter키를 통해 검색이 되었는 지 관심없고 검색이라는 이벤트가 발생하면 전달해주는 콜백함수를 불러!

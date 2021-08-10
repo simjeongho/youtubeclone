@@ -12,5 +12,8 @@ const Videoitem = (props) => (
             </div>
     </li>
     );
-
+    //아래와 같은 과정을 deconstructing이라고 부른다. 이름이 동일해야 한다. 
+//인자에서 {video}는 props 안에 있는 비디오를 바로 받아온다. 
+//이름 변경하고 싶을 때는 {video : 바꾸고 싶은 이름 }
+//snippet이 반복되므로 그냥 쓰고 싶을 때는 {video : {sniippet}} 과 같이 사용하면 video.snippet을 바로 받아올 수 있다. video를 안 쓸 수 있다. 
 export default Videoitem;

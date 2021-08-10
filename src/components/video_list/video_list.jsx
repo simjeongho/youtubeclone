@@ -9,3 +9,6 @@ const Videolist = (props) => (
     );
 
 export default Videolist;
+
+//prop으로 전달 받은 videos를 빙글빙글 돌면서 video에 있는 아이템을 video컴포넌트로 만들 것임 
+//컴포넌트에는 무조건 id가 존재해야 함 
