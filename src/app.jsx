@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import styles from './app.module.css';
 import Searchheader from './components/search_header/search_header';
 import Video_detail from './components/video_detail/video_detail';
@@ -14,15 +14,16 @@ function App({youtube}) {
     console.log('onclickvideoapp');
     setSelectedVideo(video);
   } 
-  const search = query =>
-  {
-    setSelectedVideo(null);
-    youtube.search(query)//prop으로 받은 youtube객체dml search를 사용 
-    .then(videos => 
-      {setVideos(videos);
-      });//useState를 통해 state를 업데이트 시켜주는 video  // setSelectedVideo함수를 이용해 다시 selectedVideo를 null로 만들어준다.
-    
-  }
+  const search = useCallback(query =>
+    {
+      setSelectedVideo(null);
+      youtube.search(query)//prop으로 받은 youtube객체dml search를 사용 
+      .then(videos => 
+        {setVideos(videos);
+        });//useState를 통해 state를 업데이트 시켜주는 video  // setSelectedVideo함수를 이용해 다시 selectedVideo를 null로 만들어준다.
+      
+    } , [youtube]);
+
   useEffect(() =>
   {
     console.log('mounted');
@@ -39,6 +40,7 @@ function App({youtube}) {
       </div>}
     <div className = {styles.list}>
     <Videolist videos = {videos} onVideoClicktolist = {selectVideo} display = {selectedVideo? 'list' : 'grid'}/>
+    {selectVideo && console.log('app!!')}
     </div>
     </section>
     </div>
@@ -75,4 +77,14 @@ function App({youtube}) {
 //선택하는 것은 video_list에서 선택이 되는 것
 //따라서 video_list에 콜백함수를 전달 (selectedVideo를 정하는 함수)
 //최종적으로 video_item컴포넌트에서 onclick이 되었을 때 video를 onVideoClick에 전달한다. 
+
+//성능 개선 memo
+//app이라는 component는 function component이기 때문에 관련된 state나 props가 바뀌면 우리가 다시 정의한 멤버 변수가 다시 만들어진다.
+//따라서 SearchHeader에 memo를 설정했을 경우 re-rendering 했을 때 onSearch가 다시 만들어지기 때문에 SearchHeader는 여전히 re-rendering된다. 
+// 이와 같은 문제를 해결하기 위해 useCallback함수가 존재한다. 
+//useCallback 두 번째 인자에 빈 배열을 전달하면 한 번만 object를 만들고 동일한 오브젝트를 사용한다. 
+//usecallback은 한 번 만들어지면 메모리에 보관하면서 사용하기 때문에 메모리에 많은 영향이 갈 수가 있다. 
+//그래서 정말 써야할 때만 써야한다. 
+//부모 component에서 자식 component에 props를 전달해야 할 때 쓰는 것이 좋음 
+
 export default App;
